@@ -1,0 +1,23 @@
+config.py
+
+# --- Archivos de Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.venv/
+
+*.sqlite3
+*.db
+
+# --- Archivos de configuración de sistema/IDE ---
+*.swp
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.iml
+
+# --- Logs ---
+*.log
