@@ -1,10 +1,31 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    text-align: center;
-    padding: 50px;
+    margin: 20px;
 }
 
-h1 {
-    color: #2c3e50;
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: blue;
+}
+
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.alert.success {
+    background: #c8e6c9;
+}
+
+.alert.danger {
+    background: #ffcdd2;
+}
+
+.alert.warning {
+    background: #fff9c4;
+}
+
+.alert.info {
+    background: #bbdefb;
 }
