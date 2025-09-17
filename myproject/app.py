@@ -1,20 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
-from flask_bcrypt import Bcrypt
 from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
 mysql = MySQL(app)
-bcrypt = Bcrypt(app)
 
-# Página principal
+# Home page
 @app.route('/')
 def home():
     return render_template('base.html')
 
-# Registro de usuarios
+# User registration
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -27,11 +25,9 @@ def register():
             flash('Las contraseñas no coinciden', 'danger')
             return redirect(url_for('register'))
 
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO users (username, email, password_hash) VALUES (%s, %s, %s)",
-                    (username, email, hashed_password))
+                    (username, email, password))
         mysql.connection.commit()
         cur.close()
 
@@ -52,7 +48,7 @@ def login():
         user = cur.fetchone()
         cur.close()
 
-        if user and bcrypt.check_password_hash(user['password_hash'], password_candidate):
+        if user and (password_candidate == user['password']):
             session['logged_in'] = True
             session['username'] = user['username']
             flash('Bienvenido ' + user['username'], 'success')
@@ -62,10 +58,11 @@ def login():
 
     return render_template('login.html')
 
-# Perfil (solo usuarios logueados)
+# Profile view
 @app.route('/profile')
 def profile():
     if 'logged_in' in session:
+        # We have to add username variable 0in order to display the username in the template.
         return render_template('profile.html', username=session['username'])
     else:
         flash('You must be logged in to view this page.', 'warning')

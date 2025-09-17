@@ -8,12 +8,11 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Insertar usuario de prueba (contraseña: test123)
 -- El hash corresponde a la contraseña "test123" generada con bcrypt
-INSERT INTO users (username, email, password_hash)
-VALUES ('usuario_demo', 'demo@email.com', 
-        '$2b$12$H/.AZxVQJPRGBVvj8b9B6eY9AN7k1qAnV9jJcAGfYzyF.9p3S7f0a');
+INSERT INTO users (username, email, password)
+VALUES ('demo', 'demo@email.com', 'demopass');
