@@ -12,7 +12,5 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insertar usuario de prueba (contraseña: test123)
--- El hash corresponde a la contraseña "test123" generada con bcrypt
 INSERT INTO users (username, email, password)
 VALUES ('demo', 'demo@email.com', 'demopass');

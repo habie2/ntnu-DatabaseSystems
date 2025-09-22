@@ -26,7 +26,7 @@ def register():
             return redirect(url_for('register'))
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO users (username, email, password_hash) VALUES (%s, %s, %s)",
+        cur.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)",
                     (username, email, password))
         mysql.connection.commit()
         cur.close()
