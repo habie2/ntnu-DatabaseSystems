@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}My profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2>{{ user.username }}'s profile</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+
+            <hr>
+
+            <div class="d-flex justify-content-start">
+                <a href="{{ url_for('update_profile') }}" class="btn btn-primary me-2">Edit Profile</a>
+
+                <form action="{{ url_for('delete_profile') }}" method="post"
+                    onsubmit="return confirm('Are you sure you want to permanently delete your account? This action cannot be undone.');">
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

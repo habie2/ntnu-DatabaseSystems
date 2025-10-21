@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: blue;
+}
+
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.alert.success {
+    background: #c8e6c9;
+}
+
+.alert.danger {
+    background: #ffcdd2;
+}
+
+.alert.warning {
+    background: #fff9c4;
+}
+
+.alert.info {
+    background: #bbdefb;
+}
