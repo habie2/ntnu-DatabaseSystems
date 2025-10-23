@@ -82,7 +82,6 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
-
 @app.route('/update_profile', methods=['GET', 'POST'])
 def update_profile():
     # only for logged in users

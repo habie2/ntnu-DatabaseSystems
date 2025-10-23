@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if plants %}
+<ul class="plant-list">
+    {% for plant in plants %}
+
+    {# Lógica para determinar el estado de la planta #}
+    {% set days = plant.days_since_watering %}
+    {% set status_class = 'status-ok' %}
+    {% if days > 7 %}
+    {% set status_class = 'status-danger' %}
+    {% elif days > 3 %}
+    {% set status_class = 'status-warning' %}
+    {% endif %}
+
+    <li class="plant-item {{ status_class }}">
+        <div>
+            <div class="plant-info">
+                <strong>{{ plant.name }}</strong>
+                <em>{{ plant.species }}</em>
+                <br>
+                <small>Último riego: {{ plant.last_watered.strftime('%d/%m/%Y') }}</small>
+            </div>
+
+            <div class="days-since-watering">
+                {% if days == 0 %}
+                Regada hoy
+                {% elif days == 1 %}
+                Hace 1 día
+                {% else %}
+                Hace {{ days }} días
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="plant-actions">
+            <a href="{{ url_for('edit_plant', plant_id=plant._id) }}" class="btn btn-secondary">Editar</a>
+            <form action="{{ url_for('delete_plant', plant_id=plant._id) }}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-danger"
+                    onclick="return confirm('¿Estás seguro de que quieres eliminar esta planta?');">Eliminar</button>
+            </form>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<h2>¡Bienvenido a tu jardín virtual!</h2>
+<p>Parece que aún no has añadido ninguna planta. ¡Usa el botón de arriba para empezar a registrar el riego!</p>
+{% endif %}
+{% endblock %}

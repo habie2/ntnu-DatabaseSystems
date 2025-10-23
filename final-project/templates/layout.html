@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantCare - Tu Jardín Virtual</title>
+    <!-- Importamos una fuente más moderna de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Estilos mejorados para el Sprint 3 -->
+    <style>
+        :root {
+            --primary-color: #38a169;
+            /* verde principal */
+            --primary-hover: #2f855a;
+            --secondary-color: #f6ad55;
+            /* naranja para editar */
+            --secondary-hover: #dd6b20;
+            --danger-color: #e53e3e;
+            /* rojo para eliminar */
+            --danger-hover: #c53030;
+            --background-color: #f7fafc;
+            --card-background: #ffffff;
+            --text-color: #2d3748;
+            --text-light: #718096;
+            --border-color: #e2e8f0;
+            --status-ok-border: #68d391;
+            --status-warning-border: #f6ad55;
+            --status-danger-border: #fc8181;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .main-content {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .plant-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .plant-item {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-left: 6px solid;
+            /* El color se definirá en index.html */
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .plant-item.status-ok {
+            border-left-color: var(--status-ok-border);
+        }
+
+        .plant-item.status-warning {
+            border-left-color: var(--status-warning-border);
+        }
+
+        .plant-item.status-danger {
+            border-left-color: var(--status-danger-border);
+        }
+
+        .plant-info strong {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        .plant-info em {
+            color: var(--text-light);
+            font-style: normal;
+        }
+
+        .plant-info small {
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        .days-since-watering {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .plant-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            color: white;
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-hover);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        form label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        form input[type="text"],
+        form input[type="date"] {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        form .btn {
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="{{ url_for('index') }}" class="logo">🌿 PlantCare</a>
+            <a href="{{ url_for('add_plant') }}" class="btn btn-primary">Añadir Planta</a>
+        </header>
+
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+
+</html>

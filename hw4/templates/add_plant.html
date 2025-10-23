@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Añadir una Nueva Planta</h2>
+<!-- El formulario envía los datos a la misma ruta ('/add') usando el método POST -->
+<form action="{{ url_for('add_plant') }}" method="post">
+    <div>
+        <label for="plant_name">Nombre de la Planta:</label>
+        <input type="text" id="plant_name" name="plant_name" required>
+    </div>
+    <div>
+        <label for="plant_species">Especie:</label>
+        <input type="text" id="plant_species" name="plant_species" required>
+    </div>
+    <div>
+        <label for="last_watered">Fecha del Último Riego:</label>
+        <input type="date" id="last_watered" name="last_watered" required>
+    </div>
+    <button type="submit" class="btn">Guardar Planta</button>
+</form>
+{% endblock %}
