@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #4CAF50;
+    --primary-dark: #388E3C;
+    --secondary-color: #007BFF;
+    --secondary-dark: #0056b3;
+    --danger-color: #dc3545;
+    --danger-dark: #c82333;
+    --light-gray: #f4f4f4;
+    --dark-gray: #555;
+    --white: #ffffff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --border-radius: 10px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--light-gray);
+    color: #333;
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: var(--white);
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+h2 {
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.plant-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding-top: 1rem;
+}
+
+.plant-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.plant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.plant-card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.plant-card-img-placeholder {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+    color: #aaa;
+    font-style: italic;
+}
+
+.plant-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.plant-card-body h3 {
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.plant-card-body p {
+    color: var(--dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+.plant-date {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0.25rem;
+}
+
+.plant-card-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* --- THIS IS THE NEW RULE TO FIX SIZING --- */
+.plant-card-actions>* {
+    flex: 1;
+}
+
+.btn-action {
+    /* --- THESE LINES WERE CHANGED TO FIX SIZING --- */
+    display: block;
+    width: 100%;
+    /* --- END OF CHANGE --- */
+    padding: 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-water {
+    background-color: var(--secondary-color);
+}
+
+.btn-water:hover {
+    background-color: var(--secondary-dark);
+}
+
+.btn-delete {
+    background-color: var(--danger-color);
+}
+
+.btn-delete:hover {
+    background-color: var(--danger-dark);
+}
+
+.btn-edit {
+    background-color: #6c757d;
+}
+
+.btn-edit:hover {
+    background-color: #5a6268;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--dark-gray);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.no-plants-message {
+    padding: 2rem;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    font-style: italic;
+    color: var(--dark-gray);
+}

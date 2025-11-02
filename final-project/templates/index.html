@@ -1,51 +1,59 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
+
+{% block title %}My Plants{% endblock %}
 
 {% block content %}
+<h2>My Registered Plants</h2>
+
 {% if plants %}
-<ul class="plant-list">
+<div class="plant-grid-container">
+
     {% for plant in plants %}
+    <div class="plant-card">
 
-    {# Lógica para determinar el estado de la planta #}
-    {% set days = plant.days_since_watering %}
-    {% set status_class = 'status-ok' %}
-    {% if days > 7 %}
-    {% set status_class = 'status-danger' %}
-    {% elif days > 3 %}
-    {% set status_class = 'status-warning' %}
-    {% endif %}
+        {% if plant['image_url'] %}
+        <img src="{{ url_for('static', filename=plant['image_url']) }}" alt="{{ plant['name'] }}"
+            class="plant-card-img">
+        {% else %}
+        <div class="plant-card-img-placeholder">
+            <span>No Image</span>
+        </div>
+        {% endif %}
 
-    <li class="plant-item {{ status_class }}">
-        <div>
-            <div class="plant-info">
-                <strong>{{ plant.name }}</strong>
-                <em>{{ plant.species }}</em>
-                <br>
-                <small>Último riego: {{ plant.last_watered.strftime('%d/%m/%Y') }}</small>
-            </div>
+        <div class="plant-card-body">
+            <h3>{{ plant['name'] }}</h3>
+            <p><em>Species: {{ plant['species'] }}</em></p>
 
-            <div class="days-since-watering">
-                {% if days == 0 %}
-                Regada hoy
-                {% elif days == 1 %}
-                Hace 1 día
-                {% else %}
-                Hace {{ days }} días
-                {% endif %}
+            <span class="plant-date">
+                Last Watered: {{ plant['last_watered'].strftime('%b %d, %Y at %I:%M %p') }}
+            </span>
+            <span class="plant-date">
+                Registered: {{ plant['created_at'].strftime('%b %d, %Y') }}
+            </span>
+
+            <div class="plant-card-actions">
+
+                <form action="{{ url_for('water_plant', plant_id=plant['_id']) }}" method="POST" style="flex: 1;">
+                    <button type="submit" class="btn-action btn-water">Water</button>
+                </form>
+
+                <a href="{{ url_for('edit_plant', plant_id=plant['_id']) }}" class="btn-action btn-edit">Edit</a>
+
+                <form action="{{ url_for('delete_plant', plant_id=plant['_id']) }}" method="POST" style="flex: 1;"
+                    onsubmit="return confirm('Are you sure you want to delete this plant?');">
+                    <button type="submit" class="btn-action btn-delete">Delete</button>
+                </form>
+
             </div>
         </div>
 
-        <div class="plant-actions">
-            <a href="{{ url_for('edit_plant', plant_id=plant._id) }}" class="btn btn-secondary">Editar</a>
-            <form action="{{ url_for('delete_plant', plant_id=plant._id) }}" method="post" style="display: inline;">
-                <button type="submit" class="btn btn-danger"
-                    onclick="return confirm('¿Estás seguro de que quieres eliminar esta planta?');">Eliminar</button>
-            </form>
-        </div>
-    </li>
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% else %}
-<h2>¡Bienvenido a tu jardín virtual!</h2>
-<p>Parece que aún no has añadido ninguna planta. ¡Usa el botón de arriba para empezar a registrar el riego!</p>
+<div class="no-plants-message">
+    You have no plants registered yet. Add one!
+</div>
 {% endif %}
+
 {% endblock %}

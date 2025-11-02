@@ -26,17 +26,25 @@
             <strong>{{ plant['name'] }}</strong>
             (<em>Species: {{ plant['species'] }}</em>)
             <br>
+        
             <span class="plant-date">
-                Last watered: {{ plant['last_watered'].strftime('%d/%m/%Y at %I:%M %p') }}
+                Last watered: {{ plant['last_watered'].strftime('%d/%m/%Y a las %I:%M %p') }}
             </span>
             <br>
-
+        
             <form action="{{ url_for('water_plant', plant_id=plant['_id']) }}" method="POST" style="margin-top: 10px;">
                 <button type="submit" class="btn-water">
                     Water
                 </button>
             </form>
-
+        
+            <form action="{{ url_for('delete_plant', plant_id=plant['_id']) }}" method="POST" style="margin-top: 5px;"
+                onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta planta?');">
+        
+                <button type="submit" class="btn-delete">
+                    Delete
+                </button>
+            </form>
         </div>
 
     </div>

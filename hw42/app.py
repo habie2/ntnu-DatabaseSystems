@@ -68,5 +68,17 @@ def water_plant(plant_id):
 
     return redirect(url_for('index'))
 
+@app.route('/delete/<string:plant_id>', methods=['POST'])
+def delete_plant(plant_id):
+    try:
+        plant_id_obj = ObjectId(plant_id)
+        
+        plants_collection.delete_one({'_id': plant_id_obj})
+        
+    except Exception as e:
+        print(f"Error deleting the plant: {e}")
+
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
