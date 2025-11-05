@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ plant['name'] }} Details{% endblock %}
+
+{% block content %}
+
+<!-- Plant Detail Header -->
+<div class="plant-detail-header">
+    <div class="plant-detail-image">
+        <img src="{{ url_for('static', filename=plant['image_url']) }}" alt="{{ plant['name'] }}">
+    </div>
+    <div class="plant-detail-info">
+        <h1>{{ plant['name'] }}</h1>
+        <p><strong>Species:</strong> {{ plant['species'] }}</p>
+        <p><strong>Registered:</strong> {{ plant['created_at'].strftime('%b %d, %Y') }}</p>
+        <p class="plant-detail-last-watered">
+            <strong>Last Watered:</strong> {{ plant['last_watered'].strftime('%b %d, %Y at %I:%M %p') }}
+        </p>
+        <div class="plant-detail-actions">
+            <!-- Quick actions, same as on the card -->
+            <form action="{{ url_for('water_plant', plant_id=plant['_id']) }}" method="POST">
+                <button type="submit" class="btn btn-water">Water Now</button>
+            </form>
+            <a href="{{ url_for('edit_plant', plant_id=plant['_id']) }}" class="btn btn-edit">Edit Plant</a>
+        </div>
+    </div>
+</div>
+
+<!-- Care History -->
+<div class="care-history-container">
+    <h2>Care History</h2>
+
+    {% if events %}
+    <table class="care-history-table">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event['event_type'] | capitalize }}</td>
+                <td>{{ event['event_date'].strftime('%b %d, %Y at %I:%M %p') }}</td>
+                <td>{{ event.get('notes', 'N/A') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No care events have been logged for this plant yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

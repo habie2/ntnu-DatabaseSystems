@@ -233,3 +233,110 @@ h2 {
     font-style: italic;
     color: var(--dark-gray);
 }
+/* --- Add these styles to the end of style.css --- */
+
+/* Makes the plant name on the card a clickable link */
+.plant-card-title-link {
+    text-decoration: none;
+    color: inherit;
+    /* Inherits the h3 color */
+    transition: color 0.2s ease;
+}
+
+.plant-card-title-link:hover h3 {
+    color: var(--primary-color);
+}
+
+/* --- Plant Detail Page Styles --- */
+.plant-detail-header {
+    display: flex;
+    gap: 2rem;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.plant-detail-image img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.plant-detail-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.plant-detail-info p {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+.plant-detail-last-watered {
+    font-weight: 700;
+    color: var(--primary-dark) !important;
+}
+
+.plant-detail-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.plant-detail-actions .btn {
+    padding: 10px 20px;
+}
+
+/* --- Care History Table Styles --- */
+.care-history-container {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.care-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+
+.care-history-table th,
+.care-history-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.care-history-table th {
+    background-color: #f9f9f9;
+    font-weight: 700;
+}
+
+.care-history-table td {
+    color: var(--dark-gray);
+}
+
+.care-history-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- Responsive styles for detail page --- */
+@media (max-width: 768px) {
+    .plant-detail-header {
+        flex-direction: column;
+    }
+
+    .plant-detail-image img {
+        width: 100%;
+        height: 300px;
+    }
+
+    .plant-detail-info h1 {
+        font-size: 2rem;
+    }
+}
