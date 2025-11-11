@@ -39,7 +39,7 @@
             </form>
         
             <form action="{{ url_for('delete_plant', plant_id=plant['_id']) }}" method="POST" style="margin-top: 5px;"
-                onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta planta?');">
+                onsubmit="return confirm('Are you sure you want to delete this plant?');">
         
                 <button type="submit" class="btn-delete">
                     Delete
