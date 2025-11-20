@@ -1,5 +1,5 @@
 config.py
-
+.env
 # --- Archivos de Python ---
 __pycache__/
 *.pyc

@@ -3,11 +3,13 @@ from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-client = MongoClient('mongodb://localhost:27017/')
-db = client.plant_watering_db  
+mongo_uri = os.getenv('MONGO_URI')
+client = MongoClient(mongo_uri)
+db = client.plant_watering_db
 plants_collection = db.plants
 
 @app.route('/')
