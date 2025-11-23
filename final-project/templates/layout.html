@@ -5,23 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <title>{% block title %}My Plants{% endblock %} - Plant Tracker</title>
+    <title>{% block title %}My Plants{% endblock %} - PlantCare Connect</title>
 </head>
 
 <body>
 
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <a href="{{ url_for('index') }}" class="navbar-brand">🌿 Plant Tracker</a>
-        <a href="{{ url_for('add_plant') }}" class="btn btn-primary">Add New Plant</a>
+        <a href="{{ url_for('index') }}" class="navbar-brand">🌿 PlantCare Connect</a>
+        <div class="navbar-links">
+            <!-- UPDATED: Added btn-water class -->
+            <a href="{{ url_for('forum') }}" class="btn btn-water">Community Forum</a>
+
+            {% if current_user.is_authenticated %}
+            <span class="navbar-user">Hello, {{ current_user.username }}!</span>
+            <a href="{{ url_for('add_plant') }}" class="btn btn-primary">Add New Plant</a>
+            <!-- UPDATED: Added btn-secondary class -->
+            <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+            {% else %}
+            <!-- UPDATED: Added btn-secondary class -->
+            <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Register</a>
+            {% endif %}
+        </div>
     </nav>
 
+    <!-- Main Content Area -->
     <main class="container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
         {% block content %}
         {% endblock %}
     </main>

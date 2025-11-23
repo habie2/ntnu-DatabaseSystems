@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+    <h2>Create New Discussion</h2>
+
+    <form action="{{ url_for('create_post') }}" method="POST">
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" class="form-control"
+                placeholder="e.g., Help with my yellowing leaves" required>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Message</label>
+            <textarea id="content" name="content" class="form-control" rows="6"
+                placeholder="Share your tips or ask a question..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Post to Forum</button>
+
+    </form>
+</div>
+
+{% endblock %}

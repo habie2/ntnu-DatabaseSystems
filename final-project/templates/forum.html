@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Community Forum{% endblock %}
+
+{% block content %}
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2>Community Forum</h2>
+    <a href="{{ url_for('create_post') }}" class="btn btn-primary">Create New Post</a>
+</div>
+
+{% if posts %}
+<div class="forum-container">
+    {% for post in posts %}
+    <div class="forum-card">
+        <h3 class="forum-title">{{ post['title'] }}</h3>
+        <div class="forum-meta">
+            Posted by <strong>{{ post['username'] }}</strong> on {{ post['created_at'].strftime('%b %d, %Y') }}
+        </div>
+        <div class="forum-content">
+            {{ post['content'] }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="no-plants-message">
+    No posts yet. Be the first to start a conversation!
+</div>
+{% endif %}
+
+{% endblock %}
