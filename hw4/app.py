@@ -80,5 +80,23 @@ def delete_plant(plant_id):
 
     return redirect(url_for('index'))
 
+@app.route('/delete_multiple', methods=['POST'])
+def delete_multiple():
+    try:
+        # Obtener la lista de IDs seleccionados del formulario
+        plant_ids = request.form.getlist('plant_ids')
+        
+        if plant_ids:
+            # Convertir los strings de ID a objetos ObjectId
+            object_ids = [ObjectId(pid) for pid in plant_ids]
+            
+            # Eliminar todos los documentos que coincidan con esos IDs
+            plants_collection.delete_many({'_id': {'$in': object_ids}})
+            
+    except Exception as e:
+        print(f"Error deleting multiple plants: {e}")
+
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
