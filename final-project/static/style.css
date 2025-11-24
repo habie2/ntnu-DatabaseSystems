@@ -362,3 +362,29 @@ textarea.form-control {
     color: #444;
     white-space: pre-line;
 }
+
+.plant-card {
+    position: relative;
+    /* Context for absolute positioning of checkbox */
+}
+
+.plant-select-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.plant-checkbox {
+    transform: scale(1.5);
+    /* Make checkbox bigger and easier to tap */
+    cursor: pointer;
+    margin: 0;
+}

@@ -253,17 +253,39 @@ def delete_plant(plant_id):
 
     return redirect(url_for('index'))
 
-# --- Delete All Plants Route ---
-@app.route('/delete_all_plants', methods=['POST'])
+@app.route('/delete_selected_plants', methods=['POST'])
 @login_required
-def delete_all_plants():
-    user_id_obj = ObjectId(current_user.id)
+def delete_selected_plants():
+    # Get list of selected plant IDs from the checkboxes
+    plant_ids = request.form.getlist('plant_ids')
     
-    result = plants_collection.delete_many({'user_id': user_id_obj})
-    care_events_collection.delete_many({'user_id': user_id_obj})
+    if not plant_ids:
+        flash('No plants selected for deletion.', 'warning')
+        return redirect(url_for('index'))
+
+    deleted_count = 0
+    for plant_id in plant_ids:
+        try:
+            plant_id_obj = ObjectId(plant_id)
+            
+            # Security check: Ensure the plant belongs to the current user before deleting
+            result = plants_collection.delete_one({
+                '_id': plant_id_obj,
+                'user_id': ObjectId(current_user.id)
+            })
+            
+            if result.deleted_count > 0:
+                # Also delete associated care events
+                care_events_collection.delete_many({'plant_id': plant_id_obj})
+                deleted_count += 1
+                
+        except Exception as e:
+            print(f"Error deleting plant {plant_id}: {e}")
+            continue
     
-    flash(f'Deleted {result.deleted_count} plants and their history.', 'info')
+    flash(f'Successfully deleted {deleted_count} selected plants.', 'info')
     return redirect(url_for('index'))
+
 
 # --- Forum Routes (RESTORED) ---
 @app.route('/forum')

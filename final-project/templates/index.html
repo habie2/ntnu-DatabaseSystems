@@ -5,7 +5,16 @@
 {% block content %}
 
 {% if current_user.is_authenticated %}
-<h2>{{ current_user.username }}'s Plants</h2>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>{{ current_user.username }}'s Plants</h2>
+    <!-- Select All Checkbox Helper -->
+    {% if plants %}
+    <div>
+        <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
+        <label for="select-all" style="cursor: pointer; font-weight: bold;">Select All</label>
+    </div>
+    {% endif %}
+</div>
 {% else %}
 <h2>My Registered Plants</h2>
 {% endif %}
@@ -15,11 +24,17 @@
     {% for plant in plants %}
     <div class="plant-card">
 
+        <!-- CHECKBOX FOR SELECTION -->
+        <!-- The 'form' attribute connects this input to the main form at the bottom -->
+        <div class="plant-select-wrapper">
+            <input type="checkbox" name="plant_ids" value="{{ plant['_id'] }}" form="delete-selected-form"
+                class="plant-checkbox">
+        </div>
+
         <img src="{{ url_for('static', filename=plant['image_url']) }}" alt="{{ plant['name'] }}"
             class="plant-card-img">
 
         <div class="plant-card-body">
-            <!-- Link to Detail Page -->
             <a href="{{ url_for('plant_detail', plant_id=plant['_id']) }}" class="plant-card-title-link">
                 <h3>{{ plant['name'] }}</h3>
             </a>
@@ -50,16 +65,26 @@
     {% endfor %}
 </div>
 
-<!-- NEW: Delete All Plants Button (Dangerous Action) -->
+<!-- NEW: Delete Selected Form (Main Form) -->
 {% if current_user.is_authenticated %}
-<div style="margin-top: 3rem; border-top: 1px solid #ddd; padding-top: 2rem; text-align: center;">
-    <p style="color: var(--dark-gray); margin-bottom: 1rem;">Danger Zone</p>
-    <form action="{{ url_for('delete_all_plants') }}" method="POST"
-        onsubmit="return confirm('WARNING: Are you sure you want to delete ALL your plants? This action cannot be undone.');">
-        <button type="submit" class="btn btn-delete" style="background-color: #880000;">Delete All My Plants</button>
-    </form>
-</div>
+<form id="delete-selected-form" action="{{ url_for('delete_selected_plants') }}" method="POST"
+    onsubmit="return confirm('Are you sure you want to delete the selected plants?');"
+    style="margin-top: 3rem; border-top: 1px solid #ddd; padding-top: 2rem; text-align: center;">
+
+    <p style="color: var(--dark-gray); margin-bottom: 1rem;">Bulk Actions</p>
+    <button type="submit" class="btn btn-delete" style="background-color: #880000;">Delete Selected Plants</button>
+</form>
 {% endif %}
+
+<!-- Script for "Select All" -->
+<script>
+    function toggleSelectAll(source) {
+        checkboxes = document.querySelectorAll('.plant-checkbox');
+        for (var i = 0, n = checkboxes.length; i < n; i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+</script>
 
 {% else %}
 {% if current_user.is_authenticated %}
