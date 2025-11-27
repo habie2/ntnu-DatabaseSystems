@@ -7,3 +7,6 @@ __Homework 3:__ [link to demo video.](https://youtu.be/vce7cIKi9Rw)
 
 [link to web.](https://ntnu-databasesystems.onrender.com)
 
+__Homework 4:__ [link to demo video.](https://youtu.be/FL_ekRBOz_o)
+
+[link to web.](https://ntnu-databasesystems-hw4.onrender.com)
